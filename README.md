@@ -17,6 +17,8 @@ Każda odpowiedź w zadaniach matematycznych została sprawdzona programem kompu
 
 Postęp zapisuje się w przeglądarce, osobno dla każdej strony. Przycisk u góry czyści tylko bieżącą stronę.
 
+Autor: [prondzyn na GitHubie](https://github.com/prondzyn) · [kod tej strony](https://github.com/prondzyn/przygotowanie-do-konkursow-alfik)
+
 <details><summary>Dla rodzica: jak zbudowane są katalogi</summary>
 
 Każda klasa ma swój katalog <code>&lt;konkurs&gt;/klasa-&lt;N&gt;/</code>, np. <code>matematyczny/klasa-5/</code>.
