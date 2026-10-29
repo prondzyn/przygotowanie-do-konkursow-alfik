@@ -1,0 +1,555 @@
+<title>Alfik Matematyczny — trening</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  /* Układ: jedna kolumna jak kartka z zeszytu w kratkę; nagłówek z kratką przyklejony u góry. */
+  :root {
+    --paper: #fbfcfe; --ink: #1b2433; --muted: #5a6478; --line: #d6dde9; --soft: #eef2f8;
+    --grid: #e2e8f2; --accent: #2346c8; --accent-ink: #ffffff; --mark: #fff1a6;
+    --ok: #17803a; --ok-bg: #dff3e5; --bad: #c62a2a; --bad-bg: #fbe3e3;
+    --p3: #2f8f5b; --p4: #c27a00; --p5: #c2364a;
+    --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+    --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #11151d; --ink: #e3e8f1; --muted: #9aa4b8; --line: #2c3442; --soft: #19202b;
+      --grid: #1b2230; --accent: #8ea5ff; --accent-ink: #0d1220; --mark: #4a3f00;
+      --ok: #4cc777; --ok-bg: #12301d; --bad: #ff7676; --bad-bg: #3a1717;
+      --p3: #5fcf8d; --p4: #f0b445; --p5: #ff7d8f; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #11151d; --ink: #e3e8f1; --muted: #9aa4b8; --line: #2c3442; --soft: #19202b;
+    --grid: #1b2230; --accent: #8ea5ff; --accent-ink: #0d1220; --mark: #4a3f00;
+    --ok: #4cc777; --ok-bg: #12301d; --bad: #ff7676; --bad-bg: #3a1717;
+    --p3: #5fcf8d; --p4: #f0b445; --p5: #ff7d8f; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--f-body); }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--soft); }
+  .wrap { max-width: 860px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+  header {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; border-bottom: 1px solid var(--line);
+    background-color: var(--soft);
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding-block: 8px; font-size: 14px; }
+  .brand { font: 800 17px/1 var(--f-display); color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+  .brand b { color: var(--accent); }
+  .bar nav { display: flex; gap: 12px; flex-wrap: wrap; }
+  .bar .sp { flex: 1; }
+  #wynik { color: var(--muted); font-variant-numeric: tabular-nums; }
+  #chips { display: flex; gap: 5px; padding-block: 0 8px; overflow-x: auto; scrollbar-width: none; font-size: 13px; }
+  #chips a {
+    flex: none; display: inline-flex; gap: 6px; align-items: center; padding: 2px 10px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--paper); color: var(--ink); white-space: nowrap; text-decoration: none;
+  }
+  #chips a:hover { border-color: var(--accent); }
+  #chips a[aria-current] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  #chips small { font-family: var(--f-mono); font-size: 11px; opacity: .8; }
+
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  main { padding-block: 12px 72px; }
+  h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2; scroll-margin-top: calc(var(--hdr, 90px) + 12px); }
+  h1 { font-size: 2.1em; font-weight: 800; letter-spacing: -.02em; margin: .6em 0 .5em; }
+  h2 { font-size: 1.45em; font-weight: 800; margin: 2em 0 .6em; padding-bottom: .3em; border-bottom: 2px solid var(--line); }
+  h3 { font-size: 1.15em; font-weight: 600; }
+  p, li { max-width: 68ch; }
+  hr { border: 0; border-top: 1px dashed var(--line); margin: 2.4em 0; }
+  code { font-family: var(--f-mono); background: var(--soft); padding: .05em .35em; border-radius: 4px; font-size: .88em; }
+  blockquote { margin: 1em 0; padding: .2em 1em; border-left: 4px solid var(--line); color: var(--muted); }
+  .tbl { overflow-x: auto; }
+  table { border-collapse: collapse; margin: 1em 0; font-size: .95em; }
+  th, td { border: 1px solid var(--line); padding: 6px 12px; vertical-align: top; text-align: left; }
+  th { background: var(--soft); }
+  svg { max-width: 100%; height: auto; }
+
+  /* Zadania */
+  ol.zad > li { margin: 0 0 1.6em; padding-left: .2em; }
+  ol.zad > li::marker { font: 700 1em var(--f-mono); color: var(--accent); }
+  .pkt {
+    display: inline-block; font: 700 11px/1 var(--f-mono); letter-spacing: .04em; padding: 3px 7px 2px; border-radius: 999px;
+    border: 1.5px solid currentColor; vertical-align: 2px; margin-left: 4px; font-style: normal; white-space: nowrap;
+  }
+  .pkt[data-p="3"] { color: var(--p3); } .pkt[data-p="4"] { color: var(--p4); } .pkt[data-p="5"] { color: var(--p5); }
+  ul.opts { list-style: none; padding: 0; margin: .55em 0 .5em; display: flex; flex-wrap: wrap; gap: 6px; max-width: none; }
+  ul.opts > li { margin: 0; max-width: 100%; }
+  .opt {
+    display: inline-flex; align-items: baseline; gap: 8px; min-height: 40px; padding: 6px 12px 6px 6px; max-width: 100%;
+    font: inherit; color: var(--ink); text-align: left; background: var(--paper); border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer;
+  }
+  .opt .lit {
+    flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; align-self: center;
+    font: 700 13px/1 var(--f-mono); background: var(--soft); color: var(--muted);
+  }
+  .opt:hover:not([disabled]) { border-color: var(--accent); }
+  .opt:hover:not([disabled]) .lit { background: var(--accent); color: var(--accent-ink); }
+  .opt.ok { border-color: var(--ok); background: var(--ok-bg); color: var(--ok); font-weight: 700; }
+  .opt.ok .lit { background: var(--ok); color: var(--paper); }
+  .opt.bad { border-color: var(--bad); background: var(--bad-bg); color: var(--bad); text-decoration: line-through; }
+  .opt.bad .lit { background: var(--bad); color: var(--paper); }
+  .opt.sel { border-color: var(--accent); box-shadow: inset 0 0 0 1.5px var(--accent); }
+  .opt.sel .lit { background: var(--accent); color: var(--accent-ink); }
+  .opt[disabled] { cursor: default; }
+  .opt.missed { border-style: dashed; border-color: var(--ok); }
+
+  details { margin: .3em 0 0; width: fit-content; max-width: 100%; }
+  details + br { display: none; }
+  summary { cursor: pointer; color: var(--muted); font-size: .9em; width: fit-content; }
+  details[open] { padding: .45em .9em .6em; background: var(--soft); border-radius: 8px; border: 1px solid var(--line); }
+  details[open] summary { color: var(--accent); margin-bottom: .2em; font-weight: 700; }
+  li.lock details { display: none; }
+
+  /* Testy próbne */
+  .testbox {
+    position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--hdr, 90px)); z-index: 10; margin: 1em 0 1.5em;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 10px 14px;
+    background: var(--paper); border: 1.5px solid var(--ink); border-radius: 12px; box-shadow: 4px 4px 0 var(--grid);
+  }
+  .clock { font: 700 26px/1 var(--f-mono); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+  .clock.low { color: var(--bad); }
+  .testbox .info { color: var(--muted); font-size: 14px; flex: 1; min-width: 12ch; }
+  .btn {
+    font: 700 15px/1 var(--f-body); padding: 10px 16px; border-radius: 9px; cursor: pointer;
+    background: var(--accent); color: var(--accent-ink); border: 1.5px solid var(--accent);
+  }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn.small { font-size: 12px; padding: 4px 10px; border-radius: 999px; font-weight: 400; }
+  .result { width: 100%; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 15px; }
+  .result strong { font: 800 30px/1 var(--f-display); }
+  .result span { color: var(--muted); }
+  li.st-ok > .q-flag, li.st-bad > .q-flag, li.st-none > .q-flag { display: inline-block; }
+  .q-flag { display: none; font: 700 12px/1 var(--f-mono); padding: 3px 7px; border-radius: 6px; margin-left: 6px; vertical-align: 2px; }
+  li.st-ok > .q-flag { background: var(--ok-bg); color: var(--ok); }
+  li.st-bad > .q-flag { background: var(--bad-bg); color: var(--bad); }
+  li.st-none > .q-flag { background: var(--soft); color: var(--muted); }
+  .hidden-key { display: none; }
+  .history { font-size: 14px; color: var(--muted); }
+  .history b { color: var(--ink); font-family: var(--f-mono); }
+
+  /* Zadania z prawdziwych arkuszy */
+  .zrodlo {
+    display: inline-block; font: 700 11px/1 var(--f-mono); letter-spacing: .02em; padding: 4px 8px 3px; margin-left: 4px;
+    border-radius: 4px; background: var(--ink); color: var(--paper); text-decoration: none; vertical-align: 2px; white-space: nowrap;
+  }
+  a.zrodlo:hover { background: var(--accent); color: var(--accent-ink); }
+  ol.zad > li.oryg {
+    padding: .7em .9em .6em 1em; margin-left: -.9em; border-radius: 10px;
+    background-color: var(--soft);
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 14px 14px; border: 1px solid var(--line);
+  }
+  ol.zad > li.oryg::marker { color: var(--ink); }
+  .filtr { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 1.5em 0 0; font-size: 14px; }
+  .filtr span { color: var(--muted); margin-right: 2px; }
+  .filtr button {
+    font: inherit; padding: 5px 12px; border-radius: 999px; cursor: pointer;
+    background: var(--paper); color: var(--ink); border: 1.5px solid var(--line);
+  }
+  .filtr button small { font-family: var(--f-mono); opacity: .7; margin-left: 2px; }
+  .filtr button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  .prevnext { display: flex; justify-content: space-between; gap: 12px; margin-top: 3em; padding-top: 1em; border-top: 1px dashed var(--line); }
+  .confirm { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; }
+  #error { color: var(--bad); }
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    h1 { font-size: 1.7em; }
+    .opt { min-height: 44px; }
+    .clock { font-size: 22px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .opt { transition: background .12s, border-color .12s; }
+  }
+</style>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#start">Alfik<b>·</b>trening</a>
+    <nav><a href="#dzialy">Zadania wg typu</a><a href="#przeszle">Testy przeszłe</a><a href="#testy">Testy próbne</a></nav>
+    <span class="sp"></span>
+    <span id="wynik" hidden></span>
+    <span id="resetbox"></span>
+  </div>
+  <div class="wrap" id="chips" hidden></div>
+</header>
+<main class="wrap" id="content"><p>Wczytywanie…</p></main>
+
+<script id="pages" type="application/json">/*PAGES*/</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script>
+(function () {
+  const PAGES = JSON.parse(document.getElementById('pages').textContent);
+  const byId = Object.fromEntries(PAGES.map(p => [p.id, p]));
+  const byPath = Object.fromEntries(PAGES.map(p => [p.path, p]));
+  const content = document.getElementById('content');
+  const chips = document.getElementById('chips');
+  const wynik = document.getElementById('wynik');
+  const resetbox = document.getElementById('resetbox');
+  let timerId = null;
+
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+    del(k) { try { localStorage.removeItem(k); } catch (e) {} },
+  };
+
+  function slug(t) {
+    return t.trim().toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s/g, '-');
+  }
+  function resolve(base, rel) {
+    const out = [];
+    for (const p of (base + rel).split('/')) {
+      if (p === '..') out.pop(); else if (p && p !== '.') out.push(p);
+    }
+    return out.join('/');
+  }
+  function hashKey(s) {
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
+    return h.toString(36);
+  }
+  const fmt = n => (Math.round(n * 100) / 100).toLocaleString('pl-PL');
+
+  function setHdr() {
+    const h = document.querySelector('header').offsetHeight;
+    document.documentElement.style.setProperty('--hdr', h + 'px');
+  }
+
+  // Rozmowa „Na pewno?” wewnątrz strony (okienka confirm() nie działają w podglądzie).
+  function confirmButton(label, ask, onYes) {
+    resetbox.innerHTML = '';
+    const b = document.createElement('button');
+    b.className = 'btn ghost small'; b.type = 'button'; b.textContent = label;
+    b.addEventListener('click', () => {
+      resetbox.innerHTML = '';
+      const box = document.createElement('span'); box.className = 'confirm';
+      const yes = document.createElement('button'); yes.className = 'btn small'; yes.type = 'button'; yes.textContent = 'Tak, wyczyść';
+      const no = document.createElement('button'); no.className = 'btn ghost small'; no.type = 'button'; no.textContent = 'Nie';
+      box.append(ask, yes, no); resetbox.append(box);
+      yes.addEventListener('click', onYes);
+      no.addEventListener('click', () => confirmButton(label, ask, onYes));
+    });
+    resetbox.append(b);
+  }
+
+  function renderChips(cur) {
+    chips.innerHTML = '';
+    if (!['dzial', 'test', 'przeszly'].includes(cur.kind)) { chips.hidden = true; return; }
+    const list = PAGES.filter(p => p.kind === cur.kind);
+    for (const p of list) {
+      const a = document.createElement('a');
+      a.href = '#' + p.id;
+      a.textContent = p.short;
+      if (p.id === cur.id) a.setAttribute('aria-current', 'page');
+      const pr = store.get('postep:' + p.id, null);
+      if (p.kind === 'dzial' && pr && pr.total) {
+        const s = document.createElement('small');
+        s.textContent = Object.keys(pr.solved || {}).length + '/' + pr.total;
+        a.append(s);
+      } else if (p.kind === 'test' || p.kind === 'przeszly') {
+        const h = store.get('historia:' + p.id, []);
+        if (h.length) { const s = document.createElement('small'); s.textContent = fmt(Math.max(...h.map(x => x.pts))) + ' pkt'; a.append(s); }
+      }
+      chips.append(a);
+    }
+    chips.hidden = false;
+    const c = chips.querySelector('[aria-current]');
+    if (c) chips.scrollLeft = c.offsetLeft - 16;
+  }
+
+  function prevNext(cur) {
+    const list = PAGES.filter(p => p.kind === cur.kind);
+    const i = list.findIndex(p => p.id === cur.id);
+    const box = document.createElement('div'); box.className = 'prevnext';
+    const mk = (p, txt) => { if (!p) return document.createElement('span'); const a = document.createElement('a'); a.href = '#' + p.id; a.textContent = txt; return a; };
+    box.append(mk(list[i - 1], list[i - 1] ? '← ' + list[i - 1].short : ''), mk(list[i + 1], list[i + 1] ? list[i + 1].short + ' →' : ''));
+    content.append(box);
+  }
+
+  // Zbiera zadania: <li> z listą opcji A)–E) i polem <details> z odpowiedzią.
+  function collectTasks(root) {
+    const tasks = [];
+    root.querySelectorAll('details').forEach(det => {
+      let li = det.closest('li');
+      // Markdown dokleja pole odpowiedzi do ostatniej opcji (E) — przenosimy je pod listę opcji.
+      if (li && li.parentElement.tagName === 'UL' && /^\s*[A-E]\)/.test(li.textContent)) {
+        const ul0 = li.parentElement;
+        li.querySelectorAll(':scope > br').forEach(b => b.remove());
+        ul0.after(det);
+        li = ul0.closest('li');
+      }
+      const ul = li && [...li.children].find(c => c.tagName === 'UL');
+      if (!ul) return;
+      const c = det.cloneNode(true);
+      c.querySelector('summary')?.remove();
+      const first = c.innerHTML.split(/<br\s*\/?>/i)[0].replace(/<[^>]+>/g, '').trim();
+      const m = first.match(/^([A-E])\s+—/);
+      if (!m) return;
+      const opts = [];
+      [...ul.children].forEach(oli => {
+        const t = oli.innerHTML.match(/^\s*([A-E])\)\s*([\s\S]*)$/);
+        if (!t) return;
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'opt'; b.dataset.l = t[1];
+        b.innerHTML = '<span class="lit">' + t[1] + '</span><span>' + t[2] + '</span>';
+        oli.innerHTML = ''; oli.append(b);
+        opts.push(b);
+      });
+      if (!opts.length) return;
+      ul.classList.add('opts');
+      li.parentElement.classList.add('zad');
+      const q = li.cloneNode(true);
+      q.querySelectorAll('details, ul').forEach(x => x.remove());
+      const pk = li.querySelector('.pkt');
+      tasks.push({ li, det, opts, ans: m[1], pts: pk ? +pk.dataset.p : 0, key: hashKey(q.textContent.replace(/\s+/g, ' ').trim() + '|' + first) });
+    });
+    return tasks;
+  }
+
+  function practice(page, tasks) {
+    const K = 'postep:' + page.id;
+    const st = store.get(K, { solved: {}, first: {}, tried: {} });
+    st.solved = st.solved || {}; st.first = st.first || {}; st.tried = st.tried || {};
+    st.total = tasks.length;
+    store.set(K, st);
+    const score = () => {
+      const n = tasks.filter(t => st.solved[t.key]).length;
+      const f = tasks.filter(t => st.first[t.key]).length;
+      wynik.hidden = false;
+      wynik.textContent = 'Rozwiązane: ' + n + '/' + tasks.length + ' · za 1. razem: ' + f;
+    };
+    const solve = (t, open) => {
+      t.opts.forEach(o => { o.disabled = true; if (o.dataset.l === t.ans) o.classList.add('ok'); });
+      if (open) t.det.open = true;
+    };
+    tasks.forEach(t => {
+      (st.tried[t.key] || []).forEach(l => t.opts.find(o => o.dataset.l === l)?.classList.add('bad'));
+      if (st.solved[t.key]) solve(t, false);
+      t.opts.forEach(o => o.addEventListener('click', () => {
+        if (o.disabled) return;
+        if (o.dataset.l === t.ans) {
+          st.solved[t.key] = 1;
+          if (!(st.tried[t.key] || []).length) st.first[t.key] = 1;
+          solve(t, true);
+        } else {
+          o.classList.add('bad'); o.disabled = true;
+          (st.tried[t.key] = st.tried[t.key] || []).push(o.dataset.l);
+        }
+        store.set(K, st); score(); renderChips(page);
+      }));
+    });
+    score();
+    confirmButton('Zresetuj postęp', 'Wyczyścić odpowiedzi na tej stronie?', () => { store.del(K); render(); });
+  }
+
+  function testMode(page, tasks, marker) {
+    const K = 'test:' + page.id, H = 'historia:' + page.id;
+    const minutes = +marker.dataset.minuty || 75;
+    const max = tasks.reduce((s, t) => s + t.pts, 0);
+    let st = store.get(K, { sel: {}, start: null, done: false });
+
+    // Klucz i rozwiązania ukryte do końca testu
+    const keyH = [...content.querySelectorAll('h2')].find(h => /klucz/i.test(h.textContent));
+    const keyEls = [];
+    if (keyH) {
+      let el = keyH.previousElementSibling && keyH.previousElementSibling.tagName === 'HR' ? keyH.previousElementSibling : keyH;
+      while (el) { keyEls.push(el); el = el.nextElementSibling; }
+    }
+
+    const box = document.createElement('div'); box.className = 'testbox';
+    marker.replaceWith(box);
+    tasks.forEach(t => { const f = document.createElement('span'); f.className = 'q-flag'; t.li.insertBefore(f, t.li.querySelector('ul')); });
+
+    const save = () => store.set(K, st);
+    const left = () => Math.max(0, minutes * 60 - Math.floor((Date.now() - st.start) / 1000));
+    const mmss = s => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+
+    function finish() {
+      if (st.done) return;
+      st.done = true; st.end = Date.now();
+      const r = grade();
+      const h = store.get(H, []); h.push({ pts: r.pts, ok: r.ok, bad: r.bad, at: st.end, min: Math.round((st.end - (st.start || st.end)) / 60000) }); store.set(H, h);
+      save(); draw(); renderChips(page);
+      box.scrollIntoView({ block: 'nearest' });
+    }
+    function grade() {
+      let pts = 0, ok = 0, bad = 0, none = 0;
+      tasks.forEach(t => {
+        const s = st.sel[t.key];
+        if (!s) none++; else if (s === t.ans) { ok++; pts += t.pts; } else { bad++; pts -= t.pts / 4; }
+      });
+      return { pts, ok, bad, none };
+    }
+    function draw() {
+      clearInterval(timerId); timerId = null;
+      box.innerHTML = '';
+      tasks.forEach(t => {
+        const s = st.sel[t.key];
+        t.li.classList.remove('st-ok', 'st-bad', 'st-none');
+        t.opts.forEach(o => { o.className = 'opt'; o.disabled = st.done; if (s === o.dataset.l) o.classList.add('sel'); });
+        t.li.classList.toggle('lock', !st.done);
+        if (st.done) {
+          const flag = t.li.querySelector('.q-flag');
+          t.opts.forEach(o => {
+            o.classList.remove('sel');
+            if (o.dataset.l === t.ans) o.classList.add(s === t.ans ? 'ok' : 'missed');
+            else if (o.dataset.l === s) o.classList.add('bad');
+          });
+          if (!s) { t.li.classList.add('st-none'); flag.textContent = '0'; }
+          else if (s === t.ans) { t.li.classList.add('st-ok'); flag.textContent = '+' + t.pts; }
+          else { t.li.classList.add('st-bad'); flag.textContent = '−' + fmt(t.pts / 4); }
+        }
+      });
+      keyEls.forEach(e => e.classList.toggle('hidden-key', !st.done));
+      const answered = tasks.filter(t => st.sel[t.key]).length;
+
+      if (st.done) {
+        const r = grade();
+        const res = document.createElement('div'); res.className = 'result';
+        res.innerHTML = '<div><strong>' + fmt(r.pts) + '</strong> / ' + max + ' pkt</div>' +
+          '<span>dobrze: <b>' + r.ok + '</b></span><span>źle: <b>' + r.bad + '</b></span><span>bez odpowiedzi: <b>' + r.none + '</b></span>' +
+          '<span>Rozwiązania są pod zadaniami (kliknij „rozwiązanie”).</span>';
+        const again = document.createElement('button'); again.className = 'btn ghost'; again.type = 'button'; again.textContent = 'Rozwiąż od nowa';
+        again.addEventListener('click', () => { st = { sel: {}, start: null, done: false }; save(); draw(); });
+        box.append(res, again);
+      } else {
+        const clock = document.createElement('span'); clock.className = 'clock';
+        const info = document.createElement('span'); info.className = 'info';
+        const go = document.createElement('button'); go.type = 'button';
+        box.append(clock, info, go);
+        const tick = () => {
+          if (!st.start) { clock.textContent = mmss(minutes * 60); return; }
+          const s = left(); clock.textContent = mmss(s); clock.classList.toggle('low', s < 300);
+          if (s === 0) finish();
+        };
+        info.textContent = st.start ? 'Zaznaczone: ' + answered + '/' + tasks.length + '. Kliknij jeszcze raz, żeby odznaczyć.' : 'Zegar ruszy po kliknięciu Start albo po pierwszej odpowiedzi.';
+        if (!st.start) {
+          go.className = 'btn'; go.textContent = 'Start';
+          go.addEventListener('click', () => { st.start = Date.now(); save(); draw(); });
+        } else {
+          go.className = 'btn'; go.textContent = 'Zakończ i sprawdź';
+          go.addEventListener('click', finish);
+          timerId = setInterval(tick, 1000);
+        }
+        tick();
+      }
+      const h = store.get(H, []);
+      if (h.length) {
+        const hist = document.createElement('div'); hist.className = 'history'; hist.style.width = '100%';
+        hist.innerHTML = 'Poprzednie podejścia: ' + h.slice(-5).map(x => '<b>' + fmt(x.pts) + '</b> (' + new Date(x.at).toLocaleDateString('pl-PL') + ', ' + x.min + ' min)').join(' · ');
+        box.append(hist);
+      }
+      wynik.hidden = st.done || !st.start;
+      wynik.textContent = 'Zaznaczone: ' + answered + '/' + tasks.length;
+    }
+
+    tasks.forEach(t => t.opts.forEach(o => o.addEventListener('click', () => {
+      if (st.done) return;
+      if (!st.start) st.start = Date.now();
+      st.sel[t.key] = st.sel[t.key] === o.dataset.l ? undefined : o.dataset.l;
+      if (!st.sel[t.key]) delete st.sel[t.key];
+      save(); draw();
+    })));
+    draw();
+    confirmButton('Wyczyść historię', 'Usunąć wyniki i bieżące podejście?', () => { store.del(K); store.del(H); render(); });
+  }
+
+  // Przełącznik „Wszystkie / Z arkuszy / Nowe” na stronach działów.
+  function sourceFilter(page, tasks) {
+    const orig = tasks.filter(t => t.li.classList.contains('oryg')).length;
+    if (!orig || orig === tasks.length) return;
+    tasks.forEach(t => { t.li.value = [...t.li.parentElement.children].indexOf(t.li) + +(t.li.parentElement.start || 1); });
+    const modes = [['all', 'Wszystkie', tasks.length], ['oryg', 'Z arkuszy Alfika', orig], ['nowe', 'Nowe', tasks.length - orig]];
+    const bar = document.createElement('div'); bar.className = 'filtr'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', 'Pokaż zadania');
+    const lab = document.createElement('span'); lab.textContent = 'Pokaż:'; bar.append(lab);
+    const apply = mode => {
+      tasks.forEach(t => { const o = t.li.classList.contains('oryg'); t.li.hidden = mode === 'oryg' ? !o : mode === 'nowe' ? o : false; });
+      bar.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.m === mode)));
+      store.set('filtr', mode);
+    };
+    for (const [m, txt, n] of modes) {
+      const b = document.createElement('button'); b.type = 'button'; b.dataset.m = m;
+      b.innerHTML = txt + ' <small>' + n + '</small>';
+      b.addEventListener('click', () => apply(m));
+      bar.append(b);
+    }
+    const first = tasks[0].li.parentElement.previousElementSibling;
+    let h = first; while (h && h.tagName !== 'H2') h = h.previousElementSibling;
+    (h || tasks[0].li.parentElement).before(bar);
+    apply(store.get('filtr', 'all'));
+  }
+
+  function render() {
+    clearInterval(timerId); timerId = null;
+    let id = location.hash.slice(1);
+    if (!byId[id]) id = 'start';
+    const page = byId[id];
+    const base = page.path.includes('/') ? page.path.slice(0, page.path.lastIndexOf('/') + 1) : '';
+    content.innerHTML = marked.parse(page.md);
+    document.title = page.id === 'start' ? 'Alfik Matematyczny — trening' : page.short + ' · Alfik';
+
+    content.querySelectorAll('h1, h2, h3, h4').forEach(h => { h.id = slug(h.textContent); });
+    content.querySelectorAll('table').forEach(t => { const d = document.createElement('div'); d.className = 'tbl'; t.replaceWith(d); d.append(t); });
+    content.querySelectorAll('em').forEach(em => {
+      const m = em.textContent.match(/^\((\d) pkt\)$/);
+      if (m) { const s = document.createElement('span'); s.className = 'pkt'; s.dataset.p = m[1]; s.textContent = m[1] + ' pkt'; em.replaceWith(s); return; }
+      // *(Alfik 2019, zad. 14)* — zadanie z prawdziwego arkusza: odznaka z linkiem do całego testu
+      const z = em.textContent.match(/^\(Alfik (\d{4}), zad\. (\d+)\)$/);
+      if (z) {
+        const a = document.createElement(byId['alfik-' + z[1]] ? 'a' : 'span');
+        a.className = 'zrodlo'; a.textContent = 'Alfik ' + z[1] + ' · zad. ' + z[2];
+        if (a.tagName === 'A') { a.href = '#alfik-' + z[1]; a.title = 'Cały arkusz z ' + z[1] + ' roku'; }
+        const li = em.closest('li'); if (li && li.parentElement.tagName === 'OL') li.classList.add('oryg');
+        em.replaceWith(a);
+      }
+    });
+    content.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (/^[a-z]+:/i.test(href)) { a.target = '_blank'; a.rel = 'noopener'; return; }
+      if (href.startsWith('#')) { if (!byId[href.slice(1)]) a.dataset.anchor = href.slice(1); return; }
+      const [p, hash] = href.split('#');
+      const target = byPath[resolve(base, p)];
+      if (target) { a.href = '#' + target.id; if (hash) a.dataset.then = hash; }
+    });
+
+    const tasks = collectTasks(content);
+    wynik.hidden = true; resetbox.innerHTML = '';
+    const marker = content.querySelector('.test');
+    if (marker && tasks.length) testMode(page, tasks, marker);
+    else if (tasks.length) practice(page, tasks);
+    if (page.kind === 'dzial') sourceFilter(page, tasks);
+    if (['dzial', 'test', 'przeszly'].includes(page.kind)) prevNext(page);
+    renderChips(page);
+    setHdr();
+    const then = sessionStorage && (() => { try { return sessionStorage.getItem('then'); } catch (e) { return null; } })();
+    if (then) { try { sessionStorage.removeItem('then'); } catch (e) {} document.getElementById(decodeURIComponent(then))?.scrollIntoView(); }
+    else window.scrollTo(0, 0);
+  }
+
+  // Kotwice wewnątrz strony przewijają bez zmiany adresu (adres # służy do wyboru strony).
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a');
+    if (!a) return;
+    if (a.dataset.anchor) {
+      e.preventDefault();
+      document.getElementById(decodeURIComponent(a.dataset.anchor))?.scrollIntoView({ behavior: 'smooth' });
+    } else if (a.dataset.then) {
+      try { sessionStorage.setItem('then', a.dataset.then); } catch (err) {}
+    }
+  });
+  window.addEventListener('hashchange', render);
+  window.addEventListener('resize', setHdr);
+  try { render(); } catch (err) {
+    content.innerHTML = '<p id="error">Nie udało się wyświetlić strony: ' + err.message + '</p>';
+  }
+})();
+</script>
