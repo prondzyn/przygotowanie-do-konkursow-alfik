@@ -3,6 +3,8 @@
 Zadania do nauki przed konkursami **Alfik** (Łowcy Talentów – JERSZ). Wybierz konkurs i klasę.
 Każda odpowiedź w zadaniach matematycznych została sprawdzona programem komputerowym.
 
+Strona: **[prondzyn.github.io/przygotowanie-do-konkursow-alfik](https://prondzyn.github.io/przygotowanie-do-konkursow-alfik/)**
+
 <div class="menu">
 
 ## Alfik Matematyczny
@@ -16,8 +18,6 @@ Każda odpowiedź w zadaniach matematycznych została sprawdzona programem kompu
 </div>
 
 Postęp zapisuje się w przeglądarce, osobno dla każdej strony. Przycisk u góry czyści tylko bieżącą stronę.
-
-Autor: [prondzyn na GitHubie](https://github.com/prondzyn) · [kod tej strony](https://github.com/prondzyn/przygotowanie-do-konkursow-alfik)
 
 <details><summary>Dla rodzica: jak zbudowane są katalogi</summary>
 
