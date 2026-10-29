@@ -71,6 +71,7 @@
   main { padding-block: 12px 72px; }
   h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2; scroll-margin-top: calc(var(--hdr, 90px) + 12px); }
   h1 { font-size: 2.1em; font-weight: 800; letter-spacing: -.02em; margin: .6em 0 .5em; }
+  h1 a { color: inherit; text-decoration: none; }
   h2 { font-size: 1.45em; font-weight: 800; margin: 2em 0 .6em; padding-bottom: .3em; border-bottom: 2px solid var(--line); }
   h3 { font-size: 1.15em; font-weight: 600; }
   p, li { max-width: 68ch; }
@@ -569,7 +570,8 @@
     });
     content.querySelectorAll('a[href]').forEach(a => {
       const href = a.getAttribute('href');
-      if (/^[a-z]+:/i.test(href)) { a.target = '_blank'; a.rel = 'noopener'; return; }
+      // Tytuł strony linkuje do niej samej (dla czytających README na GitHubie), więc otwiera się w tej samej karcie
+      if (/^[a-z]+:/i.test(href)) { if (!a.closest('h1')) { a.target = '_blank'; a.rel = 'noopener'; } return; }
       if (href.startsWith('#')) { if (!byId[href.slice(1)]) a.dataset.anchor = href.slice(1); return; }
       const [p, hash] = href.split('#');
       const target = byPath[resolve(base, p)];

@@ -1,9 +1,7 @@
-# Alfik: trening
+# [Alfik: trening](https://prondzyn.github.io/przygotowanie-do-konkursow-alfik/)
 
 Zadania do nauki przed konkursami **Alfik** (Łowcy Talentów – JERSZ). Wybierz konkurs i klasę.
 Każda odpowiedź w zadaniach matematycznych została sprawdzona programem komputerowym.
-
-Strona: **[prondzyn.github.io/przygotowanie-do-konkursow-alfik](https://prondzyn.github.io/przygotowanie-do-konkursow-alfik/)**
 
 <div class="menu">
 
