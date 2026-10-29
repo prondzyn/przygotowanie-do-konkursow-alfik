@@ -1,4 +1,4 @@
-<title>Alfik Matematyczny — trening</title>
+<title>Alfik — trening</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta charset="utf-8">
@@ -43,7 +43,18 @@
   .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding-block: 8px; font-size: 14px; }
   .brand { font: 800 17px/1 var(--f-display); color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
   .brand b { color: var(--accent); }
-  .bar nav { display: flex; gap: 12px; flex-wrap: wrap; }
+  .bar nav { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .bar nav .sek { font-weight: 700; color: var(--ink); text-decoration: none; padding: 1px 8px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); }
+  .bar nav .sek:hover { border-color: var(--accent); }
+  .menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 1.6em 0 2em; }
+  .menu > section { border: 1px solid var(--line); border-radius: 12px; padding: 4px 18px 14px; background: var(--soft); }
+  .menu h2 { margin: .6em 0 .5em; font-size: 1.25em; border: 0; padding: 0; }
+  .menu ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .menu li { margin: 0; }
+  .menu li a { display: block; font: 800 1.15em/1.2 var(--f-display); text-decoration: none; padding: 10px 14px; border-radius: 8px; background: var(--paper); border: 1px solid var(--line); }
+  .menu li a:hover { border-color: var(--accent); }
+  .menu li .opis { display: block; color: var(--muted); font-size: .88em; padding: 4px 2px 0; }
+  .menu li.wkrotce a { color: var(--muted); }
   .bar .sp { flex: 1; }
   #wynik { color: var(--muted); font-variant-numeric: tabular-nums; }
   #chips { display: flex; gap: 5px; padding-block: 0 8px; overflow-x: auto; scrollbar-width: none; font-size: 13px; }
@@ -174,7 +185,7 @@
 <header>
   <div class="wrap bar">
     <a class="brand" href="#start">Alfik<b>·</b>trening</a>
-    <nav><a href="#dzialy">Zadania wg typu</a><a href="#przeszle">Testy przeszłe</a><a href="#testy">Testy próbne</a></nav>
+    <nav id="nav"></nav>
     <span class="sp"></span>
     <span id="wynik" hidden></span>
     <span id="resetbox"></span>
@@ -194,6 +205,7 @@
   const chips = document.getElementById('chips');
   const wynik = document.getElementById('wynik');
   const resetbox = document.getElementById('resetbox');
+  const nav = document.getElementById('nav');
   let timerId = null;
 
   const store = {
@@ -201,6 +213,47 @@
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
     del(k) { try { localStorage.removeItem(k); } catch (e) {} },
   };
+
+  const dawne = Object.fromEntries(PAGES.filter(p => p.dawne).map(p => [p.dawne, p.id]));
+  for (const p of PAGES.filter(p => p.dawne)) {
+    for (const k of ['postep:', 'test:', 'historia:']) {
+      const v = store.get(k + p.dawne, null);
+      if (v !== null && store.get(k + p.id, null) === null) store.set(k + p.id, v);
+      if (v !== null) store.del(k + p.dawne);
+    }
+  }
+
+  // Pasek: na stronie klasy okruszek z nazwą klasy i jej strony informacyjne.
+  function renderNav(cur) {
+    nav.innerHTML = '';
+    if (!cur.sek) return;
+    const mk = (p, txt, cls) => { const a = document.createElement('a'); a.href = '#' + p.id; a.textContent = txt; if (cls) a.className = cls; return a; };
+    const info = PAGES.filter(p => p.sek === cur.sek && p.kind === 'info');
+    const start = info.find(p => p.id === cur.sek + '/start');
+    if (start) nav.append(mk(start, cur.sekNazwa, 'sek'));
+    info.filter(p => p !== start).forEach(p => nav.append(mk(p, p.short)));
+  }
+
+  // Menu na stronie głównej: każdy nagłówek w <div class="menu"> z listą pod nim to jedna karta.
+  function menuCards() {
+    content.querySelectorAll('.menu').forEach(m => {
+      [...m.querySelectorAll(':scope > h2')].forEach(h => {
+        const sec = document.createElement('section');
+        h.before(sec);
+        let el = h;
+        while (el && (el === h || el.tagName !== 'H2')) { const nx = el.nextElementSibling; sec.append(el); el = nx; }
+      });
+      m.querySelectorAll('li').forEach(li => {
+        const a = li.querySelector('a');
+        if (!a) return;
+        const rest = [...li.childNodes].filter(n => n !== a);
+        const opis = document.createElement('span'); opis.className = 'opis';
+        rest.forEach(n => opis.append(n));
+        if (opis.textContent.trim()) li.append(opis);
+        if (/^\s*wkrótce\s*$/i.test(opis.textContent)) li.classList.add('wkrotce');
+      });
+    });
+  }
 
   function slug(t) {
     return t.trim().toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s/g, '-');
@@ -244,7 +297,7 @@
   function renderChips(cur) {
     chips.innerHTML = '';
     if (!['dzial', 'test', 'przeszly'].includes(cur.kind)) { chips.hidden = true; return; }
-    const list = PAGES.filter(p => p.kind === cur.kind);
+    const list = PAGES.filter(p => p.kind === cur.kind && p.sek === cur.sek);
     for (const p of list) {
       const a = document.createElement('a');
       a.href = '#' + p.id;
@@ -267,7 +320,7 @@
   }
 
   function prevNext(cur) {
-    const list = PAGES.filter(p => p.kind === cur.kind);
+    const list = PAGES.filter(p => p.kind === cur.kind && p.sek === cur.sek);
     const i = list.findIndex(p => p.id === cur.id);
     const box = document.createElement('div'); box.className = 'prevnext';
     const mk = (p, txt) => { if (!p) return document.createElement('span'); const a = document.createElement('a'); a.href = '#' + p.id; a.textContent = txt; return a; };
@@ -490,12 +543,13 @@
 
   function render() {
     clearInterval(timerId); timerId = null;
-    let id = location.hash.slice(1);
+    let id = decodeURIComponent(location.hash.slice(1));
+    if (!byId[id] && dawne[id]) { history.replaceState(null, '', '#' + dawne[id]); id = dawne[id]; }
     if (!byId[id]) id = 'start';
     const page = byId[id];
     const base = page.path.includes('/') ? page.path.slice(0, page.path.lastIndexOf('/') + 1) : '';
     content.innerHTML = marked.parse(page.md);
-    document.title = page.id === 'start' ? 'Alfik Matematyczny — trening' : page.short + ' · Alfik';
+    document.title = page.id === 'start' ? 'Alfik — trening' : (page.kind === 'info' && page.id.endsWith('/start') ? page.sekNazwa : page.short + ' · ' + page.sekNazwa) + ' · Alfik';
 
     content.querySelectorAll('h1, h2, h3, h4').forEach(h => { h.id = slug(h.textContent); });
     content.querySelectorAll('table').forEach(t => { const d = document.createElement('div'); d.className = 'tbl'; t.replaceWith(d); d.append(t); });
@@ -505,9 +559,10 @@
       // *(Alfik 2019, zad. 14)* — zadanie z prawdziwego arkusza: odznaka z linkiem do całego testu
       const z = em.textContent.match(/^\(Alfik (\d{4}), zad\. (\d+)\)$/);
       if (z) {
-        const a = document.createElement(byId['alfik-' + z[1]] ? 'a' : 'span');
+        const arkusz = page.sek + '/alfik-' + z[1];
+        const a = document.createElement(byId[arkusz] ? 'a' : 'span');
         a.className = 'zrodlo'; a.textContent = 'Alfik ' + z[1] + ' · zad. ' + z[2];
-        if (a.tagName === 'A') { a.href = '#alfik-' + z[1]; a.title = 'Cały arkusz z ' + z[1] + ' roku'; }
+        if (a.tagName === 'A') { a.href = '#' + arkusz; a.title = 'Cały arkusz z ' + z[1] + ' roku'; }
         const li = em.closest('li'); if (li && li.parentElement.tagName === 'OL') li.classList.add('oryg');
         em.replaceWith(a);
       }
@@ -521,6 +576,7 @@
       if (target) { a.href = '#' + target.id; if (hash) a.dataset.then = hash; }
     });
 
+    menuCards();
     const tasks = collectTasks(content);
     wynik.hidden = true; resetbox.innerHTML = '';
     const marker = content.querySelector('.test');
@@ -528,6 +584,7 @@
     else if (tasks.length) practice(page, tasks);
     if (page.kind === 'dzial') sourceFilter(page, tasks);
     if (['dzial', 'test', 'przeszly'].includes(page.kind)) prevNext(page);
+    renderNav(page);
     renderChips(page);
     setHdr();
     const then = sessionStorage && (() => { try { return sessionStorage.getItem('then'); } catch (e) { return null; } })();

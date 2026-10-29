@@ -1,20 +1,23 @@
 """Wstawia zadania z oryginalnych arkuszy (testy-przeszle/alfik-RRRR.md) do działów
-w zadania-wg-typu/ według narzedzia/klasyfikacja.json.
+w zadania-wg-typu/ według klasyfikacja.json. Wszystkie trzy leżą w katalogu klasy,
+np. matematyczny/klasa-5/.
 
 Każde wstawione zadanie dostaje znacznik *(Alfik RRRR, zad. N)*. Skrypt można uruchamiać
 wielokrotnie: najpierw usuwa z działów wszystkie zadania z takim znacznikiem, potem wstawia
 je na nowo, numeruje zadania od 1 i odtwarza klucz odpowiedzi.
 
-Użycie:  python narzedzia/scal_oryginaly.py   (potem python zbuduj.py)
+Użycie:  python narzedzia/scal_oryginaly.py [katalog klasy]   (domyślnie matematyczny/klasa-5, potem python zbuduj.py)
 """
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DZIALY = ROOT / "zadania-wg-typu"
-PRZESZLE = ROOT / "testy-przeszle"
-KLASYFIKACJA = Path(__file__).resolve().parent / "klasyfikacja.json"
+KLASA = ROOT / (sys.argv[1] if len(sys.argv) > 1 else "matematyczny/klasa-5")
+DZIALY = KLASA / "zadania-wg-typu"
+PRZESZLE = KLASA / "testy-przeszle"
+KLASYFIKACJA = KLASA / "klasyfikacja.json"
 
 TAG = re.compile(r" \*\(Alfik (\d{4}), zad\. (\d+)\)\*")
 PKT = re.compile(r"\*\(([345]) pkt\)\*")
