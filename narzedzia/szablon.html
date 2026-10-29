@@ -57,7 +57,7 @@
   .menu li.wkrotce a { color: var(--muted); }
   .bar .sp { flex: 1; }
   #wynik { color: var(--muted); font-variant-numeric: tabular-nums; }
-  #chips { display: flex; gap: 5px; padding-block: 0 8px; overflow-x: auto; scrollbar-width: none; font-size: 13px; }
+  #chips { display: flex; flex-wrap: wrap; gap: 5px; padding-block: 0 8px; font-size: 13px; }
   #chips a {
     flex: none; display: inline-flex; gap: 6px; align-items: center; padding: 2px 10px; border-radius: 999px;
     border: 1px solid var(--line); background: var(--paper); color: var(--ink); white-space: nowrap; text-decoration: none;
@@ -316,8 +316,6 @@
       chips.append(a);
     }
     chips.hidden = false;
-    const c = chips.querySelector('[aria-current]');
-    if (c) chips.scrollLeft = c.offsetLeft - 16;
   }
 
   function prevNext(cur) {
