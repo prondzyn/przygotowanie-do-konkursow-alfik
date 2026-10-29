@@ -1,0 +1,819 @@
+{
+ "2025": [
+  {
+   "nr": 11,
+   "plik": "01-czytanie-ze-zrozumieniem.md",
+   "podrozdzial": "E. Sformułowania i intencje"
+  },
+  {
+   "nr": 13,
+   "plik": "01-czytanie-ze-zrozumieniem.md",
+   "podrozdzial": "E. Sformułowania i intencje"
+  },
+  {
+   "nr": 16,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 17,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 19,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "D. Temat i końcówka"
+  },
+  {
+   "nr": 20,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "B. Nieodmienne części mowy"
+  },
+  {
+   "nr": 21,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 22,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "A. Rzeczownik: przypadki, liczba, rodzaj"
+  },
+  {
+   "nr": 23,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 24,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 25,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 26,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 27,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 28,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 29,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 30,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  }
+ ],
+ "2024": [
+  {
+   "nr": 8,
+   "plik": "02-literatura-i-srodki-artystyczne.md",
+   "podrozdzial": "C. Środki artystyczne"
+  },
+  {
+   "nr": 9,
+   "plik": "02-literatura-i-srodki-artystyczne.md",
+   "podrozdzial": "C. Środki artystyczne"
+  },
+  {
+   "nr": 19,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 20,
+   "plik": "01-czytanie-ze-zrozumieniem.md",
+   "podrozdzial": "E. Sformułowania i intencje"
+  },
+  {
+   "nr": 21,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "B. Nieodmienne części mowy"
+  },
+  {
+   "nr": 22,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 23,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 24,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 25,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 26,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 27,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 28,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 29,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 30,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "C. Ortografia i interpunkcja"
+  }
+ ],
+ "2023": [
+  {
+   "nr": 12,
+   "plik": "01-czytanie-ze-zrozumieniem.md",
+   "podrozdzial": "E. Sformułowania i intencje"
+  },
+  {
+   "nr": 15,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 16,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "A. Głoski i litery"
+  },
+  {
+   "nr": 18,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 19,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 20,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "C. Budowa i pochodzenie wyrazów"
+  },
+  {
+   "nr": 21,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 22,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 23,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 24,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 25,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 26,
+   "plik": "02-literatura-i-srodki-artystyczne.md",
+   "podrozdzial": "C. Środki artystyczne"
+  },
+  {
+   "nr": 27,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 28,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "A. Głoski i litery"
+  },
+  {
+   "nr": 30,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  }
+ ],
+ "2022": [
+  {
+   "nr": 11,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 16,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 17,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 18,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 19,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 20,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 21,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "B. Przydawka, dopełnienie, okolicznik"
+  },
+  {
+   "nr": 22,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 23,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 24,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "A. Rzeczownik: przypadki, liczba, rodzaj"
+  },
+  {
+   "nr": 25,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 26,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "B. Nieodmienne części mowy"
+  },
+  {
+   "nr": 27,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 28,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "A. Rzeczownik: przypadki, liczba, rodzaj"
+  },
+  {
+   "nr": 29,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "B. Nieodmienne części mowy"
+  },
+  {
+   "nr": 30,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "C. Rodzaje zdań i wypowiedzeń"
+  }
+ ],
+ "2021": [
+  {
+   "nr": 10,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 16,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "C. Budowa i pochodzenie wyrazów"
+  },
+  {
+   "nr": 19,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 21,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 22,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 23,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 24,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 25,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 26,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "D. Temat i końcówka"
+  },
+  {
+   "nr": 27,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 28,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 29,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 30,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  }
+ ],
+ "2019": [
+  {
+   "nr": 16,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 17,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 18,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 19,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 21,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 22,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 23,
+   "plik": "02-literatura-i-srodki-artystyczne.md",
+   "podrozdzial": "C. Środki artystyczne"
+  },
+  {
+   "nr": 24,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 25,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 27,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 28,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 29,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 30,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "A. Głoski i litery"
+  }
+ ],
+ "2018": [
+  {
+   "nr": 16,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 17,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 18,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "B. Nieodmienne części mowy"
+  },
+  {
+   "nr": 19,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 21,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 22,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "C. Rodzaje zdań i wypowiedzeń"
+  },
+  {
+   "nr": 23,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 24,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 25,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 26,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "A. Rzeczownik: przypadki, liczba, rodzaj"
+  },
+  {
+   "nr": 28,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 29,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 30,
+   "plik": "02-literatura-i-srodki-artystyczne.md",
+   "podrozdzial": "C. Środki artystyczne"
+  }
+ ],
+ "2017": [
+  {
+   "nr": 16,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 17,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 18,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 19,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 20,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "B. Nieodmienne części mowy"
+  },
+  {
+   "nr": 21,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 22,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 23,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "A. Głoski i litery"
+  },
+  {
+   "nr": 24,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "B. Nieodmienne części mowy"
+  },
+  {
+   "nr": 25,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 26,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 27,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "C. Stopniowanie przymiotnika i przysłówka"
+  },
+  {
+   "nr": 28,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "B. Przydawka, dopełnienie, okolicznik"
+  },
+  {
+   "nr": 29,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "C. Ortografia i interpunkcja"
+  },
+  {
+   "nr": 30,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  }
+ ],
+ "2016": [
+  {
+   "nr": 12,
+   "plik": "01-czytanie-ze-zrozumieniem.md",
+   "podrozdzial": "E. Sformułowania i intencje"
+  },
+  {
+   "nr": 13,
+   "plik": "02-literatura-i-srodki-artystyczne.md",
+   "podrozdzial": "C. Środki artystyczne"
+  },
+  {
+   "nr": 14,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 15,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 16,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 17,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 18,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "A. Głoski i litery"
+  },
+  {
+   "nr": 19,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "B. Nieodmienne części mowy"
+  },
+  {
+   "nr": 20,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 21,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "A. Rzeczownik: przypadki, liczba, rodzaj"
+  },
+  {
+   "nr": 22,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 24,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 25,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 26,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 27,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 28,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 29,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 30,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  }
+ ],
+ "2015": [
+  {
+   "nr": 16,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "C. Rodzaje zdań i wypowiedzeń"
+  },
+  {
+   "nr": 18,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "C. Stopniowanie przymiotnika i przysłówka"
+  },
+  {
+   "nr": 19,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "B. Nieodmienne części mowy"
+  },
+  {
+   "nr": 20,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 21,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 24,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 25,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 26,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 27,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  },
+  {
+   "nr": 28,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 29,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 30,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  }
+ ],
+ "2014": [
+  {
+   "nr": 16,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 17,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 18,
+   "plik": "06-zdanie-i-jego-czesci.md",
+   "podrozdzial": "A. Podmiot i orzeczenie"
+  },
+  {
+   "nr": 19,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 20,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 21,
+   "plik": "05-odmiana-wyrazow.md",
+   "podrozdzial": "B. Czasownik: osoba, czas, tryb, forma"
+  },
+  {
+   "nr": 22,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 23,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "A. Znaczenie wyrazów, synonimy i antonimy"
+  },
+  {
+   "nr": 24,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 25,
+   "plik": "07-gloski-litery-sylaby-ortografia.md",
+   "podrozdzial": "B. Samogłoski, spółgłoski i sylaby"
+  },
+  {
+   "nr": 27,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 28,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "A. Odmienne części mowy"
+  },
+  {
+   "nr": 29,
+   "plik": "04-czesci-mowy.md",
+   "podrozdzial": "C. Części mowy w zdaniu"
+  },
+  {
+   "nr": 30,
+   "plik": "03-slownictwo-i-frazeologia.md",
+   "podrozdzial": "B. Związki frazeologiczne i przysłowia"
+  }
+ ]
+}

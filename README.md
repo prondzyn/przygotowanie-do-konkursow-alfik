@@ -11,7 +11,7 @@ Każda odpowiedź w zadaniach matematycznych została sprawdzona programem kompu
 
 ## Alfik Humanistyczny
 
-- [Klasa 5](humanistyczny/klasa-5/README.md) wkrótce
+- [Klasa 5](humanistyczny/klasa-5/README.md) 331 pytań w 7 działach, 11 arkuszy z lat 2014–2025, 2 testy próbne
 
 </div>
 

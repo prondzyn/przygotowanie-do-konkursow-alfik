@@ -77,7 +77,8 @@
   p, li { max-width: 68ch; }
   hr { border: 0; border-top: 1px dashed var(--line); margin: 2.4em 0; }
   code { font-family: var(--f-mono); background: var(--soft); padding: .05em .35em; border-radius: 4px; font-size: .88em; }
-  blockquote { margin: 1em 0; padding: .2em 1em; border-left: 4px solid var(--line); color: var(--muted); }
+  /* Cytat to tekst do czytania w Alfiku Humanistycznym: pełny kolor, bo czyta się go długo */
+  blockquote { margin: 1em 0; padding: .4em 1.1em; border-left: 4px solid var(--line); background: var(--soft); border-radius: 0 8px 8px 0; color: var(--ink); }
   .tbl { overflow-x: auto; }
   table { border-collapse: collapse; margin: 1em 0; font-size: .95em; }
   th, td { border: 1px solid var(--line); padding: 6px 12px; vertical-align: top; text-align: left; }
@@ -406,7 +407,9 @@
   function testMode(page, tasks, marker) {
     const K = 'test:' + page.id, H = 'historia:' + page.id;
     const minutes = +marker.dataset.minuty || 75;
-    const max = tasks.reduce((s, t) => s + t.pts, 0);
+    // Alfik Humanistyczny: uczestnik dostaje na start tyle punktów, ile jest pytań (data-start="30")
+    const bonus = +marker.dataset.start || 0;
+    const max = bonus + tasks.reduce((s, t) => s + t.pts, 0);
     let st = store.get(K, { sel: {}, start: null, done: false });
 
     // Klucz i rozwiązania ukryte do końca testu
@@ -434,7 +437,7 @@
       box.scrollIntoView({ block: 'nearest' });
     }
     function grade() {
-      let pts = 0, ok = 0, bad = 0, none = 0;
+      let pts = bonus, ok = 0, bad = 0, none = 0;
       tasks.forEach(t => {
         const s = st.sel[t.key];
         if (!s) none++; else if (s === t.ans) { ok++; pts += t.pts; } else { bad++; pts -= t.pts / 4; }
