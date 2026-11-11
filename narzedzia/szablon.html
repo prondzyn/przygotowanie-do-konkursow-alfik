@@ -145,6 +145,9 @@
   li.st-bad > .q-flag { background: var(--bad-bg); color: var(--bad); }
   li.st-none > .q-flag { background: var(--soft); color: var(--muted); }
   .hidden-key { display: none; }
+  /* Pauza: zadania rozmyte, żeby przerwa nie była dodatkowym czasem na myślenie */
+  li.paused { filter: blur(7px); pointer-events: none; user-select: none; }
+  .clock.paused { color: var(--muted); }
   .history { font-size: 14px; color: var(--muted); }
   .history b { color: var(--ink); font-family: var(--f-mono); }
 
@@ -209,6 +212,8 @@
   const resetbox = document.getElementById('resetbox');
   const nav = document.getElementById('nav');
   let timerId = null;
+  // Pauzuje trwający test, gdy uczeń przechodzi na inną stronę, zamyka kartę albo blokuje ekran
+  let pauseTest = null;
 
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -312,7 +317,9 @@
         a.append(s);
       } else if (p.kind === 'test' || p.kind === 'przeszly') {
         const h = store.get('historia:' + p.id, []);
-        if (h.length) { const s = document.createElement('small'); s.textContent = fmt(Math.max(...h.map(x => x.pts))) + ' pkt'; a.append(s); }
+        const t = store.get('test:' + p.id, null);
+        if (t && t.start && !t.done) { const s = document.createElement('small'); s.textContent = '⏸ w toku'; s.title = 'Test zaczęty, nieskończony'; a.append(s); }
+        else if (h.length) { const s = document.createElement('small'); s.textContent = fmt(Math.max(...h.map(x => x.pts))) + ' pkt'; a.append(s); }
       }
       chips.append(a);
     }
@@ -425,14 +432,21 @@
     tasks.forEach(t => { const f = document.createElement('span'); f.className = 'q-flag'; t.li.insertBefore(f, t.li.querySelector('ul')); });
 
     const save = () => store.set(K, st);
-    const left = () => Math.max(0, minutes * 60 - Math.floor((Date.now() - st.start) / 1000));
+    // st.pauza: suma ms przerw zakończonych; st.pauzaOd: kiedy zaczęła się trwająca przerwa
+    const used = () => (st.pauzaOd || st.end || Date.now()) - st.start - (st.pauza || 0);
+    const left = () => Math.max(0, minutes * 60 - Math.floor(used() / 1000));
+    const running = () => st.start && !st.done && !st.pauzaOd;
+    function pause() { if (!running()) return; st.pauzaOd = Date.now(); save(); draw(); renderChips(page); }
+    function resume() { if (!st.pauzaOd) return; st.pauza = (st.pauza || 0) + Date.now() - st.pauzaOd; delete st.pauzaOd; save(); draw(); }
+    pauseTest = pause;
     const mmss = s => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
 
     function finish() {
       if (st.done) return;
+      if (st.pauzaOd) { st.pauza = (st.pauza || 0) + Date.now() - st.pauzaOd; delete st.pauzaOd; }
       st.done = true; st.end = Date.now();
       const r = grade();
-      const h = store.get(H, []); h.push({ pts: r.pts, ok: r.ok, bad: r.bad, at: st.end, min: Math.round((st.end - (st.start || st.end)) / 60000) }); store.set(H, h);
+      const h = store.get(H, []); h.push({ pts: r.pts, ok: r.ok, bad: r.bad, at: st.end, min: Math.round((st.start ? used() : 0) / 60000) }); store.set(H, h);
       save(); draw(); renderChips(page);
       box.scrollIntoView({ block: 'nearest' });
     }
@@ -452,6 +466,7 @@
         t.li.classList.remove('st-ok', 'st-bad', 'st-none');
         t.opts.forEach(o => { o.className = 'opt'; o.disabled = st.done; if (s === o.dataset.l) o.classList.add('sel'); });
         t.li.classList.toggle('lock', !st.done);
+        t.li.classList.toggle('paused', !!st.pauzaOd && !st.done);
         if (st.done) {
           const flag = t.li.querySelector('.q-flag');
           t.opts.forEach(o => {
@@ -484,13 +499,22 @@
         const tick = () => {
           if (!st.start) { clock.textContent = mmss(minutes * 60); return; }
           const s = left(); clock.textContent = mmss(s); clock.classList.toggle('low', s < 300);
-          if (s === 0) finish();
+          if (s === 0 && running()) finish();
         };
-        info.textContent = st.start ? 'Zaznaczone: ' + answered + '/' + tasks.length + '. Kliknij jeszcze raz, żeby odznaczyć.' : 'Zegar ruszy po kliknięciu Start albo po pierwszej odpowiedzi.';
         if (!st.start) {
+          info.textContent = 'Zegar ruszy po kliknięciu Start albo po pierwszej odpowiedzi.';
           go.className = 'btn'; go.textContent = 'Start';
           go.addEventListener('click', () => { st.start = Date.now(); save(); draw(); });
+        } else if (st.pauzaOd) {
+          clock.classList.add('paused');
+          info.textContent = 'Pauza. Zaznaczone: ' + answered + '/' + tasks.length + '. Zegar stoi, zadania są zakryte.';
+          go.className = 'btn'; go.textContent = 'Wznów';
+          go.addEventListener('click', resume);
         } else {
+          info.textContent = 'Zaznaczone: ' + answered + '/' + tasks.length + '. Kliknij jeszcze raz, żeby odznaczyć.';
+          const pb = document.createElement('button'); pb.type = 'button'; pb.className = 'btn ghost'; pb.textContent = 'Pauza';
+          pb.addEventListener('click', pause);
+          go.before(pb);
           go.className = 'btn'; go.textContent = 'Zakończ i sprawdź';
           go.addEventListener('click', finish);
           timerId = setInterval(tick, 1000);
@@ -508,14 +532,14 @@
     }
 
     tasks.forEach(t => t.opts.forEach(o => o.addEventListener('click', () => {
-      if (st.done) return;
+      if (st.done || st.pauzaOd) return;
       if (!st.start) st.start = Date.now();
       st.sel[t.key] = st.sel[t.key] === o.dataset.l ? undefined : o.dataset.l;
       if (!st.sel[t.key]) delete st.sel[t.key];
       save(); draw();
     })));
     draw();
-    confirmButton('Wyczyść historię', 'Usunąć wyniki i bieżące podejście?', () => { store.del(K); store.del(H); render(); });
+    confirmButton('Wyczyść historię', 'Usunąć wyniki i bieżące podejście?', () => { pauseTest = null; store.del(K); store.del(H); render(); });
   }
 
   // Przełącznik „Wszystkie / Z arkuszy / Nowe” na stronach działów.
@@ -544,6 +568,7 @@
   }
 
   function render() {
+    if (pauseTest) { pauseTest(); pauseTest = null; }
     clearInterval(timerId); timerId = null;
     let id = decodeURIComponent(location.hash.slice(1));
     if (!byId[id] && dawne[id]) { history.replaceState(null, '', '#' + dawne[id]); id = dawne[id]; }
@@ -607,6 +632,8 @@
     }
   });
   window.addEventListener('hashchange', render);
+  document.addEventListener('visibilitychange', () => { if (document.hidden && pauseTest) pauseTest(); });
+  window.addEventListener('pagehide', () => { if (pauseTest) pauseTest(); });
   window.addEventListener('resize', setHdr);
   try { render(); } catch (err) {
     content.innerHTML = '<p id="error">Nie udało się wyświetlić strony: ' + err.message + '</p>';

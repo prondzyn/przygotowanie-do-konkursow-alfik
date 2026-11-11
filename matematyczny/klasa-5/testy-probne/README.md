@@ -11,6 +11,7 @@ Pełne arkusze ułożone jak na prawdziwym Alfiku: 30 zadań, 75 minut, 10 zada�
 **Jak to działa na stronie**
 
 - Zegar rusza po kliknięciu **Start** albo po pierwszej odpowiedzi. Gdy czas się skończy, test sprawdzi się sam.
+- Przycisk **Pauza** zatrzymuje zegar i zakrywa zadania, a **Wznów** wraca do testu. Test pauzuje się też sam, gdy przejdziesz na inną stronę, zamkniesz kartę albo wygasisz ekran. Zaznaczone odpowiedzi zostają, więc można dokończyć innego dnia.
 - Odpowiedź zaznaczasz kliknięciem. Drugie kliknięcie ją odznacza, bo puste pole to 0 pkt, a nie minus.
 - Rozwiązania i klucz pokazują się dopiero po kliknięciu **Zakończ i sprawdź**.
 - Wyniki kolejnych podejść zapisują się w przeglądarce, więc widać postęp.
