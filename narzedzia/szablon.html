@@ -173,6 +173,30 @@
   .filtr button small { font-family: var(--f-mono); opacity: .7; margin-left: 2px; }
   .filtr button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
+  /* Widok „jedno zadanie naraz”: widać tylko bieżące zadanie, numerki do skakania i strzałki */
+  .filtr.widok { margin: .2em 0 1em; }
+  main.focus > :not(h1):not(.keep):not(.testbox):not(.filtr) { display: none; }
+  main.focus ol.zad > li:not(.cur) { display: none; }
+  main.focus ol.zad > li.cur { font-size: 1.1em; margin-bottom: .6em; }
+  .fokus-top { display: grid; gap: 10px; margin: 1.2em 0 1.4em; }
+  .fsek { font: 700 15px/1.2 var(--f-display); color: var(--muted); }
+  .fnums { display: flex; flex-wrap: wrap; gap: 5px; }
+  .fnums button {
+    font: 700 13px/1 var(--f-mono); min-width: 34px; height: 34px; padding: 0 4px; border-radius: 8px; cursor: pointer;
+    border: 1.5px solid var(--line); background: var(--paper); color: var(--muted);
+  }
+  .fnums button:hover { border-color: var(--accent); }
+  .fnums .sel { border-color: var(--accent); color: var(--accent); background: var(--soft); }
+  .fnums .ok { border-color: var(--ok); color: var(--ok); background: var(--ok-bg); }
+  .fnums .bad { border-color: var(--bad); color: var(--bad); background: var(--bad-bg); }
+  .fnums [aria-current] { outline: 2.5px solid var(--ink); outline-offset: 1px; color: var(--ink); }
+  .ftext, .ftext[open] { width: 100%; margin: 0; }
+  .ftext[open] > div { max-height: 42vh; overflow: auto; }
+  main.focus:has(li.paused) .ftext { filter: blur(7px); pointer-events: none; user-select: none; }
+  .fokus-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 1.5em 0; padding-top: 1em; border-top: 1px dashed var(--line); }
+  .fokus-nav span { color: var(--muted); font-size: 14px; text-align: center; }
+  .btn[disabled] { opacity: .35; cursor: default; }
+
   .prevnext { display: flex; justify-content: space-between; gap: 12px; margin-top: 3em; padding-top: 1em; border-top: 1px dashed var(--line); }
   .confirm { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; }
   #error { color: var(--bad); }
@@ -214,6 +238,8 @@
   let timerId = null;
   // Pauzuje trwający test, gdy uczeń przechodzi na inną stronę, zamyka kartę albo blokuje ekran
   let pauseTest = null;
+  // Widok „jedno zadanie naraz” na bieżącej stronie: { go(krok), paint() } albo null
+  let focus = null;
 
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -567,7 +593,106 @@
     apply(store.get('filtr', 'all'));
   }
 
+  // Druga możliwość rozwiązywania (testu i działu): widać jedno zadanie, numerki do skakania, strzałki.
+  // Tekst do czytania (Alfik Humanistyczny) jest nad zadaniem w rozwijanym polu.
+  function focusMode(page, tasks) {
+    const K = 'fokus:' + page.id;
+    tasks.forEach(t => { t.li.value = [...t.li.parentElement.children].indexOf(t.li) + +(t.li.parentElement.start || 1); });
+
+    // Tekst do zadania: cytaty z jego własnej sekcji (dział: „Tekst 1: Katarynka”),
+    // a gdy ich tam nie ma, najbliższa wcześniejsza sekcja bez zadań z cytatem (test: „Tekst”).
+    const secs = [{ h2: null, els: [] }];
+    [...content.children].forEach(el => { if (el.tagName === 'H2') secs.push({ h2: el, els: [] }); else secs[secs.length - 1].els.push(el); });
+    secs.forEach(s => { s.tasks = s.els.some(e => e.matches('ol.zad')); s.quote = s.els.some(e => e.tagName === 'BLOCKQUOTE'); });
+    const ctx = new Map();
+    secs.forEach((s, i) => s.els.filter(e => e.matches('ol.zad')).forEach(ol => {
+      let els = [];
+      if (s.quote) { for (const e of s.els) { if (e.matches('ol.zad')) break; els.push(e); } }
+      else for (let j = i - 1; j >= 0; j--) if (!secs[j].tasks && secs[j].quote) { els = secs[j].els; break; }
+      ctx.set(ol, { name: s.h2 ? s.h2.textContent.trim() : '', els: els.filter(e => !e.matches('.testbox, .filtr, hr')) });
+    }));
+
+    const bar = document.createElement('div'); bar.className = 'filtr widok'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', 'Widok');
+    bar.innerHTML = '<span>Widok:</span>';
+    [['all', 'Wszystkie zadania'], ['one', 'Jedno zadanie naraz']].forEach(([m, txt]) => {
+      const b = document.createElement('button'); b.type = 'button'; b.dataset.m = m; b.textContent = txt;
+      b.addEventListener('click', () => setMode(m)); bar.append(b);
+    });
+    const h1 = content.querySelector('h1');
+    if (h1) h1.after(bar); else content.prepend(bar);
+
+    const top = document.createElement('div'); top.className = 'fokus-top keep';
+    top.innerHTML = '<div class="fsek"></div><div class="fnums" role="group" aria-label="Zadania"></div><details class="ftext"><summary>📖 Tekst do zadania</summary><div></div></details>';
+    const [sek, nums, det] = top.children;
+    const navb = document.createElement('div'); navb.className = 'fokus-nav keep';
+    const mkb = (txt, d) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost'; b.textContent = txt; b.addEventListener('click', () => go(d)); return b; };
+    const prev = mkb('← Poprzednie', -1), next = mkb('Następne →', 1), licz = document.createElement('span');
+    navb.append(prev, licz, next);
+
+    let mode = store.get('widok', 'all'), curKey = store.get(K, null);
+    const visible = () => tasks.filter(t => !t.li.hidden);
+    const stateOf = t => {
+      const c = t.li.classList, o = t.opts;
+      if (c.contains('st-ok')) return 'ok';
+      if (c.contains('st-bad')) return 'bad';
+      if (o.some(x => x.classList.contains('sel'))) return 'sel';
+      if (o.some(x => x.classList.contains('ok'))) return 'ok';
+      if (o.some(x => x.classList.contains('bad'))) return 'bad';
+      return '';
+    };
+    const curIdx = vis => Math.max(0, vis.findIndex(t => t.key === curKey));
+
+    function paint() {
+      if (mode !== 'one') return;
+      const vis = visible(); if (!vis.length) return;
+      const i = curIdx(vis);
+      nums.innerHTML = '';
+      vis.forEach((t, j) => {
+        const b = document.createElement('button'); b.type = 'button'; b.textContent = t.li.value;
+        const s = stateOf(t); if (s) b.className = s;
+        if (j === i) b.setAttribute('aria-current', 'step');
+        b.addEventListener('click', () => go(j - i));
+        nums.append(b);
+      });
+      licz.textContent = 'Zadanie ' + (i + 1) + ' z ' + vis.length;
+      prev.disabled = i === 0; next.disabled = i === vis.length - 1;
+    }
+    function show() {
+      tasks.forEach(t => t.li.classList.remove('cur'));
+      content.querySelectorAll('ol.zad.keep').forEach(o => o.classList.remove('keep'));
+      content.classList.toggle('focus', mode === 'one');
+      bar.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.m === mode)));
+      const vis = visible();
+      if (mode !== 'one' || !vis.length) { top.remove(); navb.remove(); return; }
+      const t = vis[curIdx(vis)];
+      curKey = t.key; store.set(K, curKey);
+      t.li.classList.add('cur');
+      const ol = t.li.parentElement; ol.classList.add('keep');
+      if (top.nextElementSibling !== ol) ol.before(top);
+      if (navb.previousElementSibling !== ol) ol.after(navb);
+      const c = ctx.get(ol) || { name: '', els: [] };
+      sek.textContent = c.name; sek.hidden = !c.name;
+      det.hidden = !c.els.length;
+      if (det._for !== ol) { det._for = ol; det.lastElementChild.replaceChildren(...c.els.map(e => e.cloneNode(true))); }
+      paint();
+    }
+    function go(d) {
+      const vis = visible(); if (!vis.length) return;
+      const j = Math.min(vis.length - 1, Math.max(0, curIdx(vis) + d));
+      curKey = vis[j].key; show(); window.scrollTo(0, 0);
+    }
+    function setMode(m) {
+      mode = m; store.set('widok', m); show();
+      if (m === 'all') tasks.find(t => t.key === curKey)?.li.scrollIntoView({ block: 'center' });
+      else window.scrollTo(0, 0);
+    }
+    focus = { go: d => mode === 'one' && go(d), refresh: show };
+    show();
+  }
+
   function render() {
+    focus = null;
+    content.classList.remove('focus');
     if (pauseTest) { pauseTest(); pauseTest = null; }
     clearInterval(timerId); timerId = null;
     let id = decodeURIComponent(location.hash.slice(1));
@@ -611,6 +736,7 @@
     if (marker && tasks.length) testMode(page, tasks, marker);
     else if (tasks.length) practice(page, tasks);
     if (page.kind === 'dzial') sourceFilter(page, tasks);
+    if (tasks.length && ['dzial', 'test', 'przeszly'].includes(page.kind)) focusMode(page, tasks);
     if (['dzial', 'test', 'przeszly'].includes(page.kind)) prevNext(page);
     renderNav(page);
     renderChips(page);
@@ -632,6 +758,16 @@
     }
   });
   window.addEventListener('hashchange', render);
+  // Widok „jedno zadanie”: po kliknięciu odpowiedzi, filtra, Zakończ itp. odśwież numerki; strzałki ← → przełączają zadania
+  content.addEventListener('click', e => {
+    if (!focus) return;
+    if (e.target.closest('.filtr:not(.widok) button')) focus.refresh();
+    else if (!e.target.closest('.fokus-top, .fokus-nav, .widok')) setTimeout(() => focus && focus.refresh());
+  });
+  document.addEventListener('keydown', e => {
+    if (!focus || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    if (e.key === 'ArrowLeft') focus.go(-1); else if (e.key === 'ArrowRight') focus.go(1);
+  });
   document.addEventListener('visibilitychange', () => { if (document.hidden && pauseTest) pauseTest(); });
   window.addEventListener('pagehide', () => { if (pauseTest) pauseTest(); });
   window.addEventListener('resize', setHdr);
